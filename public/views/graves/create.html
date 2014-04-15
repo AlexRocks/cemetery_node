@@ -15,7 +15,7 @@
         </div>
 
         <div class="form-group">
-            <label class="control-label">Section {{(sections| filter:Grave.grave_cemetery_id).length}}</label>
+            <label class="control-label">Section {{(sections| filter:Grave.grave_cemetery_id).length}} {{Grave.grave_section_id}}</label>
             <div class="col-md-10">
                 <select name="grave_section_id" ng-model="Grave.grave_section_id" required>
                     <option value="">Select a section</option>
@@ -27,7 +27,7 @@
         </div>
 
         <div class="form-group">
-            <label class="control-label">Plot</label>
+            <label class="control-label">Plot {{(sections| filter:Grave.grave_section_id).length}} {{Grave.grave_plot_id}}</label>
             <div class="col-md-10">
                 <select name="grave_plot_id" ng-model="Grave.grave_plot_id" required>
                     <option value="">Select a plot</option>
@@ -39,7 +39,7 @@
         </div>
 
         <div class="form-group">
-            <label class="control-label">Marker</label>
+            <label class="control-label">Marker {{(sections| filter:Grave.grave_plot_id).length}} {{Grave.grave_marker_id}}</label>
             <div class="col-md-10">
                 <select name="grave_marker_id" ng-model="Grave.grave_marker_id" required>
                     <option value="">Select a marker</option>
@@ -50,6 +50,18 @@
             </div>
         </div>
 
+
+        <div class="form-group">
+            <label class="control-label">Choose an Owner</label>
+            <div class="col-md-10">
+                <select name="grave_owner_id" ng-model="Grave.grave_owner_id" required">
+                        <option value="">Choose an Owner</option>
+                    <option ng-repeat='Owner in owners' value='{{Owner._id}}'>
+                        {{Owner.owner_first_name}} {{Owner.owner_last_name}}
+                    </option>
+                </select>
+            </div>
+        </div>
 
         <div class="form-group">
             <label for="title" class="col-md-2 control-label">First Name</label>

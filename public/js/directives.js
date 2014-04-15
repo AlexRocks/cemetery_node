@@ -56,10 +56,6 @@ angular.module('mean.markers')
                         reader.readAsDataURL(params.file);
 
                         function onLoadFile(event) {
-
-                            console.log("onLoadFile");
-
-
                             var img = new Image();
                             img.onload = onLoadImage;
                             img.src = event.target.result;

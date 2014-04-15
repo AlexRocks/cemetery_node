@@ -1,6 +1,6 @@
 <section data-ng-controller="OwnersController" data-ng-init="find()">
     <ul class="owners unstyled">
-        <li data-ng-repeat="owner in owners">
+        <li data-ng-repeat="owner in Owners">
             <span>{{owner.owner_created_date| date:'medium'}}</span> /
             <span>{{owner.user.name}}</span>
             <h2><a data-ng-href="#!/owners/{{owner._id}}">{{owner.owner_first_name}} {{owner.owner_middle_name}}, {{owner.owner_last_name}}</a></h2>

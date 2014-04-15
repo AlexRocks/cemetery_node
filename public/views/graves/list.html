@@ -1,11 +1,11 @@
 <section data-ng-controller="GravesController" data-ng-init="find()">
-	<ul class="graves unstyled">
-		<li data-ng-repeat="grave in graves">
-			<span>{{grave.grave_created_date | date:'medium'}}</span> /
-			<span>{{grave.user.name}}</span>
-			<h2><a data-ng-href="#!/graves/{{grave._id}}">{{grave.grave_first_name}}, {{grave.grave_last_name}}</a></h2>
-			<div>{{grave.grave_description}}</div>
-		</li>
-	</ul>
-	<h1 data-ng-hide="!graves || graves.length">No graves yet. <br> Why don't you <a href="/#!/graves/create">Create One</a>?</h1>
+    <ul class="graves unstyled">
+        <li data-ng-repeat="grave in Graves">
+            <span>{{grave.grave_created_date| date:'medium'}}</span> /
+            <span>{{grave.user.name}}</span>
+            <h2><a data-ng-href="#!/graves/{{grave._id}}">{{grave.grave_first_name}}, {{grave.grave_last_name}}</a></h2>
+            <div>{{grave.grave_description}}</div>
+        </li>
+    </ul>
+    <h1 data-ng-hide="!graves || graves.length">No graves yet. <br> Why don't you <a href="/#!/graves/create">Create One</a>?</h1>
 </section>
