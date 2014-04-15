@@ -1,0 +1,11 @@
+<section data-ng-controller="CemeterysController" data-ng-init="find()">
+	<ul class="cemeterys unstyled">
+		<li data-ng-repeat="cemetery in Cemeterys">
+			<span>{{cemetery.acmCemetery_created_date | date:'medium'}}</span> /
+			<span>{{cemetery.user.name}}</span>
+			<h2><a data-ng-href="#!/cemeterys/{{cemetery._id}}">{{cemetery._id}}:{{cemetery.acmCemetery_name}}</a></h2>
+			<div>{{cemetery.acmCemetery_description}}</div>
+		</li>
+	</ul>
+	<h1 data-ng-hide="!Cemeterys || Cemeterys.length">No cemeteries yet. <br> Why don't you <a href="/#!/cemeterys/create">Create One</a>?</h1>
+</section>

@@ -1,0 +1,18 @@
+<section data-ng-controller="GravesController" data-ng-init="findOne()">
+    <span>{{Grave.grave_created_date| date:'medium'}}</span> /
+    <span>{{Grave.user.name}}</span>
+    <h2>{{Grave.grave_first_name}} {{Grave.grave_middle_name}} {{Grave.grave_last_name}}</h2>
+    <h2>{{Grave.grave_birth_date}} - {{Grave.grave_death_date}}</h2>
+    <h2>Interment:{{Grave.grave_interment_date}}</h2>
+    <h2>Purchase:{{Grave.grave_purchase_date}}</h2>
+    <h2>Price:{{Grave.grave_purchase_price}}</h2>
+    <div data-ng-show="Grave.user._id == Grave.user._id">
+        <a class="btn" href="/#!/graves/{{Grave._id}}/edit">
+            <i class="glyphicon glyphicon-edit"></i>
+        </a>
+        <a class="btn" data-ng-click="remove();">
+            <i class="glyphicon glyphicon-trash"></i>
+        </a>
+    </div>
+    <div>{{Grave.grave_description}}</div>
+</section>

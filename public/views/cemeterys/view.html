@@ -1,0 +1,15 @@
+<section data-ng-controller="CemeterysController" data-ng-init="findOne()">
+    <span>{{Cemetery.acmCemetery_created_date | date:'medium'}}</span> /
+    <span>{{Cemetery.user.name}}</span>
+    <h2>{{Cemetery.acmCemetery_name}}</h2>
+    <h2>GPS:{{(Cemetery.acmCemetery_lat) ? Cemetery.acmCemetery_lat : 'No POS'}}, {{(Cemetery.acmCemetery_lng) ? Cemetery.acmCemetery_lng : ''}}</h2>
+    <div data-ng-show="global.user._id == Cemetery.user._id">
+        <a class="btn" href="/#!/cemeterys/{{Cemetery._id}}/edit">
+        	<i class="glyphicon glyphicon-edit"></i>
+        </a>
+        <a class="btn" data-ng-click="remove();">
+            <i class="glyphicon glyphicon-trash"></i>
+        </a>
+    </div>
+    <div>{{Cemetery.acmCemetery_description}}</div>
+</section>

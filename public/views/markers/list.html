@@ -1,0 +1,11 @@
+<section data-ng-controller="MarkersController" data-ng-init="find()">
+	<ul class="markers unstyled">
+		<li data-ng-repeat="marker in Markers">
+			<span>{{marker.marker_created_date | date:'medium'}}</span> /
+			<span>{{marker.user.name}}</span>
+			<h2><a data-ng-href="#!/markers/{{marker._id}}">{{marker.marker_name}}</a></h2>
+			<div>{{marker.marker_description}}</div>
+		</li>
+	</ul>
+	<h1 data-ng-hide="!Markers || Markers.length">No markers yet. <br> Why don't you <a href="/#!/markers/create">Create One</a>?</h1>
+</section>

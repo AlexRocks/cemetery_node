@@ -1,0 +1,14 @@
+<section data-ng-controller="OwnersController" data-ng-init="findOne()">
+    <span>{{Owner.owner_created_date| date:'medium'}}</span> /
+    <span>{{Owner.user.name}}</span>
+    <h2>{{Owner.owner_first_name}} {{Owner.owner_middle_name}} {{Owner.owner_last_name}}</h2>
+    <div data-ng-show="Owner.user._id == Owner.user._id">
+        <a class="btn" href="/#!/owners/{{Owner._id}}/edit">
+            <i class="glyphicon glyphicon-edit"></i>
+        </a>
+        <a class="btn" data-ng-click="remove();">
+            <i class="glyphicon glyphicon-trash"></i>
+        </a>
+    </div>
+    <div>{{Owner.owner_notes}}</div>
+</section>

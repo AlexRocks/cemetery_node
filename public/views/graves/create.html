@@ -1,0 +1,229 @@
+<section data-ng-controller="GravesController" data-ng-init="findOne()">
+    <form class="form-horizontal col-md-6" role="form" data-ng-submit="update()">
+
+
+        <div class="form-group">
+            <label class="control-label">Cemetery</label>
+            <div class="col-md-10">
+                <select name="grave_cemetery_id" ng-model="Grave.grave_cemetery_id" required">
+                        <option value="">Select a cemetery</option>
+                    <option ng-repeat='Cemetery in cemeteries' value='{{Cemetery._id}}'>
+                        {{Cemetery.acmCemetery_name}}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Section {{(sections| filter:Grave.grave_cemetery_id).length}}</label>
+            <div class="col-md-10">
+                <select name="grave_section_id" ng-model="Grave.grave_section_id" required>
+                    <option value="">Select a section</option>
+                    <option ng-repeat='Section in sections| filter:Grave.grave_cemetery_id' value='{{Section._id}}'>
+                        {{Section.section_name}}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Plot</label>
+            <div class="col-md-10">
+                <select name="grave_plot_id" ng-model="Grave.grave_plot_id" required>
+                    <option value="">Select a plot</option>
+                    <option ng-repeat='Plot in plots| filter:Grave.grave_section_id' value='{{Plot._id}}'>
+                        {{Plot.plot_name}}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Marker</label>
+            <div class="col-md-10">
+                <select name="grave_marker_id" ng-model="Grave.grave_marker_id" required>
+                    <option value="">Select a marker</option>
+                    <option ng-repeat='Marker in markers| filter:Grave.grave_plot_id' value='{{Marker._id}}'>
+                        {{Marker.marker_name}}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="title" class="col-md-2 control-label">First Name</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" data-ng-model="Grave.grave_first_name" id="grave_first_name" placeholder="First Name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="content" class="col-md-2 control-label">Middle Name</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" data-ng-model="Grave.grave_middle_name" id="grave_middle_name" placeholder="Middle Name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="content" class="col-md-2 control-label">Last Name</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" data-ng-model="Grave.grave_last_name" id="grave_last_name" placeholder="Last Name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="content" class="col-md-2 control-label">Date of Birth</label>
+            <div class="col-md-10">
+                <input type="date" value="dd-mm-yyyy" ng-required="false" class="form-control" data-ng-model="Grave.grave_birth_date" id="grave_birth_date" placeholder="Date of Birth">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="content" class="col-md-2 control-label">Date of Death</label>
+            <div class="col-md-10">
+                <input type="date" value="dd-mm-yyyy" ng-required="false" class="form-control" data-ng-model="Grave.grave_death_date" id="grave_death_date" placeholder="Date of Death">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="content" class="col-md-2 control-label">Interment Date</label>
+            <div class="col-md-10">
+                <input type="date" value="dd-mm-yyyy" ng-required="false" class="form-control" data-ng-model="Grave.grave_interment_date" id="grave_interment_date" placeholder="Interment Date">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="content" class="col-md-2 control-label">Purchase Date</label>
+            <div class="col-md-10">
+                <input type="date" value="dd-mm-yyyy" ng-required="false" class="form-control" data-ng-model="Grave.grave_purchase_date" id="grave_purchase_date" placeholder="Purchase Date">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="content" class="col-md-2 control-label">Purchase Price</label>
+            <div class="col-md-10">
+                <input type="number" ng-required="false" class="form-control" data-ng-model="Grave.grave_purchase_price" id="grave_purchase_price" placeholder="Purchase Price" min="" max="">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="content" class="col-md-2 control-label">Description</label>
+            <div class="col-md-10">
+                <textarea data-ng-model="Grave.grave_description" id="grave_description" cols="30" rows="10" placeholder="Description" class="form-control" ng-required="false"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="content" class="col-md-2 control-label">Documents</label>
+            <div class="col-md-10">
+
+                <table class="table">
+                    <tbody>
+                        <tr ng-repeat="item in Grave.grave_documents">
+                            <td><strong>{{item.path.name}}</strong></td>
+                            <td nowrap>{{ item.path.size / 1024 / 1024|number:2 }} MB</td>
+                            <td nowrap>{{ item.path.type}} </td>
+                            <td nowrap>
+                                <button type="button" class="btn btn-danger btn-xs" ng-click="remove_document(item)">
+                                    <span class="glyphicon glyphicon-trash"></span> Remove
+                                </button>
+                    <downloadbutton href="{{item.path}}" title="{{item.path.name}}"></downloadbutton>
+                    </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-default">Submit</button>
+            </div>
+        </div>
+    </form>
+</section>
+
+<!-- -->
+<div style="float:none; clear: both;">
+    <section ng-controller="TestController" ng-file-drop style='border: black 3px solid;'>
+
+        <div class="col-md-3">
+
+            <h3>Select files</h3>
+            <div ng-show="uploader.isHTML5">
+                <div class="well my-drop-zone" ng-file-over>
+                    Base drop zone
+                </div>
+                <!--                <div class="well my-drop-zone" ng-file-drop="{ url: '/foo' }" ng-file-over="another-file-over-class">
+                                    Another drop zone with its own settings
+                                </div>-->
+            </div>
+            Multiple
+            <input ng-file-select type="file" multiple  /><br/>
+            <!--            Single
+                        <input ng-file-select type="file" />-->
+        </div>
+
+        <div class="col-md-9" style="margin-bottom: 40px">
+
+            <h3>Upload queue</h3>
+            <p>Queue length: {{ uploader.queue.length}}</p>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th width="50%">Name</th>
+                        <th ng-show="uploader.isHTML5">Size</th>
+                        <th ng-show="uploader.isHTML5">Progress</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in uploader.queue">
+                        <td><strong>{{ item.file.name}}</strong></td>
+                        <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size / 1024 / 1024|number:2 }} MB</td>
+                        <td ng-show="uploader.isHTML5">
+                            <div class="progress" style="margin-bottom: 0;">
+                                <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                            <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                            <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                        </td>
+                        <td nowrap>
+                            <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                                <span class="glyphicon glyphicon-upload"></span> Upload
+                            </button>
+                            <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
+                                <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                            </button>
+                            <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                                <span class="glyphicon glyphicon-trash"></span> Remove
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div>
+                <p>
+                    Queue progress:
+                <div class="progress" style="">
+                    <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                </div>
+                </p>
+                <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
+                    <span class="glyphicon glyphicon-upload"></span> Upload all
+                </button>
+                <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
+                    <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
+                </button>
+                <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
+                    <span class="glyphicon glyphicon-trash"></span> Remove all
+                </button>
+            </div>
+
+        </div>
+
+
+    </section>
+</div>
+<!-- -->

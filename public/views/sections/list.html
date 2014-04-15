@@ -1,0 +1,11 @@
+<section data-ng-controller="SectionsController" data-ng-init="find()">
+	<ul class="cemeterys unstyled">
+		<li data-ng-repeat="data in Sections">
+			<span>{{data.section_created_date | date:'medium'}}</span> /
+			<span>{{data.user.name}}</span>
+			<h2><a data-ng-href="#!/sections/{{data._id}}">{{data._id}}:{{data.section_name}}</a></h2>
+			<div>{{data.section_description}}</div>
+		</li>
+	</ul>
+	<h1 data-ng-hide="!Sections || Sections.length">No Sections yet. <br> Why don't you <a href="/#!/sections/create">Create One</a>?</h1>
+</section>

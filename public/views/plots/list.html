@@ -1,0 +1,11 @@
+<section data-ng-controller="PlotsController" data-ng-init="find()">
+	<ul class="plots unstyled">
+		<li data-ng-repeat="plot in Plots">
+			<span>{{plot.plot_created_date | date:'medium'}}</span> /
+			<span>{{plot.user.name}}</span>
+			<h2><a data-ng-href="#!/plots/{{plot._id}}">{{plot.plot_name}}</a></h2>
+			<div>{{plot.plot_description}}</div>
+		</li>
+	</ul>
+	<h1 data-ng-hide="!Plots || Plots.length">No plots yet. <br> Why don't you <a href="/#!/plots/create">Create One</a>?</h1>
+</section>

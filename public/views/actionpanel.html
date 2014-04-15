@@ -1,0 +1,7 @@
+<div class="" data-ng-controller="ActionsController">
+    <ul class="my-navbar-nav my-nav">
+        <li data-ng-repeat="item in actions" data-ng-show="global.user" ui-route="/{{item.link}}" ng-class="{active: $uiRoute}">
+            <a href="#!/{{item.link}}">{{item.title}}</a>
+        </li>
+    </ul>
+</div>

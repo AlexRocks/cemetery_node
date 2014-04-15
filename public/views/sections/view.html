@@ -1,0 +1,15 @@
+<section data-ng-controller="SectionsController" data-ng-init="findOne()">
+    <span>{{Section.section_created_date | date:'medium'}}</span> /
+    <span>{{Section.user.name}}</span>
+    <h2>{{Section.section_name}}</h2>
+    <h2>GPS:{{(Section.section_gps) ? Section.section_gps : 'No POS'}}</h2>
+    <div data-ng-show="global.user._id == Section.user._id">
+        <a class="btn" href="/#!/sections/{{Section._id}}/edit">
+        	<i class="glyphicon glyphicon-edit"></i>
+        </a>
+        <a class="btn" data-ng-click="remove();">
+            <i class="glyphicon glyphicon-trash"></i>
+        </a>
+    </div>
+    <div>{{Section.section_description}}</div>
+</section>

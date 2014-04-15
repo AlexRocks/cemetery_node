@@ -1,0 +1,11 @@
+<section data-ng-controller="OwnersController" data-ng-init="find()">
+    <ul class="owners unstyled">
+        <li data-ng-repeat="owner in owners">
+            <span>{{owner.owner_created_date| date:'medium'}}</span> /
+            <span>{{owner.user.name}}</span>
+            <h2><a data-ng-href="#!/owners/{{owner._id}}">{{owner.owner_first_name}} {{owner.owner_middle_name}}, {{owner.owner_last_name}}</a></h2>
+            <div>{{owner.owner_notes}}</div>
+        </li>
+    </ul>
+    <h1 data-ng-hide="!owners || owners.length">No owners yet. <br> Why don't you <a href="/#!/owners/create">Create One</a>?</h1>
+</section>

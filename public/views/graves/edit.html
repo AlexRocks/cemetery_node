@@ -1,0 +1,67 @@
+<section data-ng-controller="GravesController" data-ng-init="findOne()">
+	<form class="form-horizontal col-md-6" role="form" data-ng-submit="update()">
+            
+            <div class="form-group">
+			<label for="title" class="col-md-2 control-label">First Name</label>
+			<div class="col-md-10">
+				<input type="text" class="form-control" data-ng-model="grave.grave_first_name" id="grave_first_name" placeholder="First Name" required>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="content" class="col-md-2 control-label">Middle Name</label>
+			<div class="col-md-10">
+				<input type="text" class="form-control" data-ng-model="grave.grave_middle_name" id="grave_middle_name" placeholder="Middle Name" required>
+			</div>
+		</div>
+                <div class="form-group">
+			<label for="content" class="col-md-2 control-label">Last Name</label>
+			<div class="col-md-10">
+				<input type="text" class="form-control" data-ng-model="grave.grave_last_name" id="grave_last_name" placeholder="Last Name" required>
+			</div>
+		</div>
+                <div class="form-group">
+			<label for="content" class="col-md-2 control-label">Date of Birth</label>
+			<div class="col-md-10">
+                            <input type="date" value="dd-mm-yyyy" ng-required="true" class="form-control" data-ng-model="grave.grave_birth_date" id="grave_birth_date" placeholder="Date of Birth">
+			</div>
+		</div>
+                <div class="form-group">
+			<label for="content" class="col-md-2 control-label">Date of Death</label>
+			<div class="col-md-10">
+                            <input type="date" value="dd-mm-yyyy" ng-required="false" class="form-control" data-ng-model="grave.grave_death_date" id="grave_death_date" placeholder="Date of Death">
+			</div>
+		</div>
+                <div class="form-group">
+			<label for="content" class="col-md-2 control-label">Interment Date</label>
+			<div class="col-md-10">
+                            <input type="date" value="dd-mm-yyyy" ng-required="false" class="form-control" data-ng-model="grave.grave_interment_date" id="grave_interment_date" placeholder="Interment Date">
+			</div>
+		</div>
+                <div class="form-group">
+			<label for="content" class="col-md-2 control-label">Purchase Date</label>
+			<div class="col-md-10">
+                            <input type="date" value="dd-mm-yyyy" ng-required="false" class="form-control" data-ng-model="grave.grave_purchase_date" id="grave_purchase_date" placeholder="Purchase Date">
+			</div>
+		</div>
+            
+                <div class="form-group">
+			<label for="content" class="col-md-2 control-label">Purchase Price</label>
+			<div class="col-md-10">
+                            <input type="number" ng-required="false" class="form-control" data-ng-model="grave.grave_purchase_price" id="grave_purchase_price" placeholder="Purchase Price" min="" max="">
+			</div>
+		</div>            
+                           
+                <div class="form-group">
+			<label for="content" class="col-md-2 control-label">Description</label>
+			<div class="col-md-10">
+				<textarea data-ng-model="grave.grave_description" id="grave_description" cols="30" rows="10" placeholder="Description" class="form-control" required></textarea>
+			</div>
+		</div>
+
+                <div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<button type="submit" class="btn btn-default">Submit</button>
+			</div>
+		</div>
+	</form>
+</section>

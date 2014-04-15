@@ -1,0 +1,15 @@
+<section data-ng-controller="PlotsController" data-ng-init="findOne()">
+    <span>{{Plot.plot_created_date | date:'medium'}}</span> /
+    <span>{{Plot.user.name}}</span>
+    <h2>{{Plot.plot_name}}</h2>
+    <h2>GPS:{{(Plot.plot_lat) ? Plot.plot_lat : 'No POS'}}, {{(Plot.plot_lng) ? Plot.plot_lng : ''}}</h2>
+    <div data-ng-show="global.user._id == Plot.user._id">
+        <a class="btn" href="/#!/plots/{{Plot._id}}/edit">
+        	<i class="glyphicon glyphicon-edit"></i>
+        </a>
+        <a class="btn" data-ng-click="remove();">
+            <i class="glyphicon glyphicon-trash"></i>
+        </a>
+    </div>
+    <div>{{Plot.plot_description}}</div>
+</section>

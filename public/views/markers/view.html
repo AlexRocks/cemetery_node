@@ -1,0 +1,15 @@
+<section data-ng-controller="MarkersController" data-ng-init="findOne()">
+    <span>{{Marker.marker_created_date | date:'medium'}}</span> /
+    <span>{{Marker.user.name}}</span>
+    <h2>{{Marker.marker_name}}</h2>
+    <h2>GPS:{{(Marker.marker_lat) ? Marker.marker_lat : 'No POS'}}, {{(Marker.marker_lng) ? Marker.marker_lng : ''}}</h2>
+    <div data-ng-show="global.user._id == Marker.user._id">
+        <a class="btn" href="/#!/markers/{{Marker._id}}/edit">
+        	<i class="glyphicon glyphicon-edit"></i>
+        </a>
+        <a class="btn" data-ng-click="remove();">
+            <i class="glyphicon glyphicon-trash"></i>
+        </a>
+    </div>
+    <div>{{Marker.marker_description}}</div>
+</section>
