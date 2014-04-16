@@ -32,6 +32,9 @@ angular.module('mean.users').controller('UsersController', ['$scope', '$rootScop
 
         $scope.update = function() {
 
+            console.log("Updae user");
+
+
             var data = $scope.User;
 
             if ($scope.isNew === false) {
@@ -62,6 +65,10 @@ angular.module('mean.users').controller('UsersController', ['$scope', '$rootScop
         };
 
         $scope.find = function() {
+
+            console.log("find users");
+
+
             Users.query(function(data) {
                 $scope.Users = data;
             });

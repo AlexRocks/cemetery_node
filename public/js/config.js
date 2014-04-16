@@ -112,6 +112,10 @@ angular.module('mean').config(['$stateProvider', '$urlRouterProvider',
                 })
 
 
+                .state('all users', {
+                    url: '/users',
+                    templateUrl: 'views/users/list.html'
+                })
                 .state('edit user', {
                     url: '/users/:userId/edit',
                     templateUrl: 'views/users/create.html'
@@ -120,7 +124,7 @@ angular.module('mean').config(['$stateProvider', '$urlRouterProvider',
                     url: '/users/:userId',
                     templateUrl: 'views/users/view.html'
                 })
-                .state('user by id', {
+                .state('user me', {
                     url: '/users/me',
                     templateUrl: 'views/users/create.html'
                 })

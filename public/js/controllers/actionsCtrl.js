@@ -39,5 +39,8 @@ angular.module('mean.system').controller('ActionsController', ['$scope', 'Global
             }, {
                 'title': 'Create New Owner',
                 'link': 'owners/create'
+            }, {
+                'title': 'Users',
+                'link': 'users'
             }];
     }]);

@@ -4,7 +4,9 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-        User = mongoose.model('User');
+        User = mongoose.model('User'),
+        _ = require('lodash');
+;
 
 /**
  * Auth callback
@@ -150,4 +152,23 @@ exports.destroy = function(req, res) {
  */
 exports.show = function(req, res) {
     res.jsonp(req.user);
+};
+
+/**
+ * List of sections
+ */
+exports.all = function(req, res) {
+
+    console.log("Search for users");
+
+
+    User.find().sort('-created').populate('user', 'name username').exec(function(err, users) {
+        if (err) {
+            res.render('error', {
+                status: 500
+            });
+        } else {
+            res.jsonp(users);
+        }
+    });
 };

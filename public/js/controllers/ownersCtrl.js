@@ -75,6 +75,9 @@ angular.module('mean.owners').controller('OwnersController', ['$scope', '$rootSc
         };
 
         $scope.find = function() {
+
+            console.log("find owners");
+
             Owners.query(function(owners) {
                 $scope.Owners = owners;
             });
