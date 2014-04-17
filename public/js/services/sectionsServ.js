@@ -30,11 +30,11 @@ angular.module('mean').factory('Section2', ['$http', '$rootScope', function($htt
         function getSections() {
             var dfd = $.Deferred();
             $http({method: 'GET', url: 'sections'})
-                    .success(function(data, status, headers, config) {
+                    .success(function(data/*, status, headers, config*/) {
                         places = data;
                         dfd.resolve(data);
                     })
-                    .error(function(data, status, headers, config) {
+                    .error(function(data/*, status, headers, config*/) {
                         dfd.reject(data);
                     });
             return dfd.promise();
@@ -45,7 +45,7 @@ angular.module('mean').factory('Section2', ['$http', '$rootScope', function($htt
         var service = {};
 
         service.getAll = function() {
-            if (!(places.length > 0)) {
+            if (places.length <= 0) {
                 getSections().then(function() {
                     return places;
                 });
@@ -72,14 +72,13 @@ angular.module('mean').factory('Section2', ['$http', '$rootScope', function($htt
             var dfd = $.Deferred();
             var place = null;
             $http({method: 'GET', url: 'sections/' + id})
-                    .success(function(data, status, headers, config) {
+                    .success(function(data) {
                         place = data;
                         dfd.resolve(data);
                     })
-                    .error(function(data, status, headers, config) {
+                    .error(function(data) {
                         dfd.reject(data);
                     });
-            //return place;
             return dfd.promise();
         };
 
@@ -87,14 +86,13 @@ angular.module('mean').factory('Section2', ['$http', '$rootScope', function($htt
             var dfd = $.Deferred();
             var place = null;
             $http({method: 'GET', url: 'sections/' + id})
-                    .success(function(data, status, headers, config) {
+                    .success(function(data) {
                         place = data;
                         dfd.resolve(data);
                     })
-                    .error(function(data, status, headers, config) {
+                    .error(function(data) {
                         dfd.reject(data);
                     });
-            //return place;
             return dfd.promise();
         };
 
@@ -102,9 +100,7 @@ angular.module('mean').factory('Section2', ['$http', '$rootScope', function($htt
     }]);
 
 
-/**/
-/*
- ﻿(function () {
+/*(function () {
  var sectionsFactory = function ($resource, $q) {
  var serviceBase = 'sections/',
  factory = {};

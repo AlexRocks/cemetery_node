@@ -1,4 +1,21 @@
 <section data-ng-controller="UsersController" data-ng-init="find()">
+
+    <p><strong>Filter:</strong> {{tableParams.filter() | json}}
+
+    <table ng-table="tableParams" show-filter="true" class="table">
+        <tr ng-repeat="user in $data">
+            <td data-title="'Name'" filter="{ 'name': 'text' }">
+                {{user.name}}
+            </td>
+            <td data-title="'Email'" filter="{ 'email': 'text' }">
+                {{user.email}}
+            </td>
+            <td data-title="'Email'">
+                <a data-ng-href="#!/users/{{user._id}}/edit">Edit</a>
+            </td>
+        </tr>
+    </table>
+
     <ul class="markers unstyled">
         <li data-ng-repeat="user in Users">
             <span>{{user.name}}</span>

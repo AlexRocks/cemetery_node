@@ -16,12 +16,58 @@ var UserSchema = new Schema({
         required: true
     },
     email: String,
-    username: {
-        type: String,
-        unique: true
+    user_first_name: {
+        type: String
     },
-    info: {
-        type: Object
+    user_middle_name: {
+        type: String
+    },
+    user_last_name: {
+        type: String
+    },
+    user_organization: {
+        type: String
+    },
+    user_level: {
+        type: Number
+    },
+    user_billing_address: {
+        address1: {
+            type: String,
+            default: ''
+        },
+        address2: {
+            type: String,
+            default: ''
+        },
+        city: {
+            type: String,
+            default: ''
+        },
+        state: {
+            type: String,
+            default: ''
+        },
+        country: {
+            type: String,
+            default: ''
+        },
+        postalcode: {
+            type: String,
+            default: ''
+        },
+        phone: {
+            type: String,
+            default: ''
+        }
+    },
+    user_created_date: {
+        type: Date,
+        default: Date.now
+    },
+    user_updated_date: {
+        type: Date,
+        default: Date.now
     },
     hashed_password: String,
     provider: String,
@@ -66,12 +112,12 @@ UserSchema.path('email').validate(function(email) {
     return (typeof email === 'string' && email.length > 0);
 }, 'Email cannot be blank');
 
-UserSchema.path('username').validate(function(username) {
-    // if you are authenticating by any of the oauth strategies, don't validate
-    if (!this.provider)
-        return true;
-    return (typeof username === 'string' && username.length > 0);
-}, 'Username cannot be blank');
+//UserSchema.path('username').validate(function(username) {
+//    // if you are authenticating by any of the oauth strategies, don't validate
+//    if (!this.provider)
+//        return true;
+//    return (typeof username === 'string' && username.length > 0);
+//}, 'Username cannot be blank');
 
 UserSchema.path('hashed_password').validate(function(hashed_password) {
     // if you are authenticating by any of the oauth strategies, don't validate

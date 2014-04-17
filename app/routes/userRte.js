@@ -5,9 +5,13 @@ var users = require('../controllers/userCtrl');
 var authorization = require('./middlewares/authorization');
 
 // Article authorization helpers
-var hasAuthorization = function(req, res, next) {
-    if (req.section.user.id !== req.user.id) {
-        return res.send(401, 'User is not authorized');
+var hasPermission = function(req, res, next) {
+
+    console.info(req);
+
+
+    if ((req.params.userId !== req.user.id) && (req.profile.user_level !== 1)) {
+        return res.send(401, 'User has no permission for do it');
     }
     next();
 };
@@ -28,8 +32,8 @@ module.exports = function(app, passport) {
     app.param('userId', users.user);
 
     app.get('/users/:userId', users.show);
-    app.put('/users/:userId', authorization.requiresLogin, hasAuthorization, users.update);
-    app.del('/users/:userId', authorization.requiresLogin, hasAuthorization, users.destroy);
+    app.put('/users/:userId', authorization.requiresLogin, hasPermission, users.update);
+    app.del('/users/:userId', authorization.requiresLogin, hasPermission, users.destroy);
 
     // Setting the local strategy route
     app.post('/users/session', passport.authenticate('local', {

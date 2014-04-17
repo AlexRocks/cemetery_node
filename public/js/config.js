@@ -126,7 +126,7 @@ angular.module('mean').config(['$stateProvider', '$urlRouterProvider',
                 })
                 .state('user me', {
                     url: '/users/me',
-                    templateUrl: 'views/users/create.html'
+                    templateUrl: 'views/users/view.html'
                 })
 
                 .state('all owners', {

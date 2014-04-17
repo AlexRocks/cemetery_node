@@ -10,6 +10,7 @@
         "bootstrap": "3.0.3",
         "angular-bootstrap": "0.10.0",
         "es5-shim": "~2.1.0",
+        "ng-table": "latest",
         "angular-ui-router": "#master"
     }
 }

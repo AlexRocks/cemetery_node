@@ -30,7 +30,7 @@ module.exports = function(grunt) {
                 src: ['gruntfile.js', 'server.js', 'app/**/*.js', 'public/js/**', 'test/**/*.js', '!test/coverage/**/*.js'],
                 options: {
                     jshintrc: true
-                }
+                },
             }
         },
         nodemon: {

@@ -2,16 +2,16 @@ function PolygonCreator(map) {
     this.map = map;
     this.pen = new Pen(this.map);
     var thisOjb = this;
-    this.event = google.maps.event.addListener(thisOjb.map, 'click', function (event) {
+    this.event = google.maps.event.addListener(thisOjb.map, 'click', function(event) {
         thisOjb.pen.draw(event.latLng);
     });
-    this.showData = function () {
+    this.showData = function() {
         return this.pen.getData();
     }
-    this.showColor = function () {
+    this.showColor = function() {
         return this.pen.getColor();
     }
-    this.destroy = function () {
+    this.destroy = function() {
         this.pen.deleteMis();
         if (null != this.pen.polygon) {
             this.pen.polygon.remove();
@@ -22,11 +22,11 @@ function PolygonCreator(map) {
 
 function Pen(map) {
     this.map = map;
-    this.listOfDots = new Array();
+    this.listOfDots = [];
     this.polyline = null;
     this.polygon = null;
     this.currentDot = null;
-    this.draw = function (latLng) {
+    this.draw = function(latLng) {
         if (null != this.polygon) {
             alert('Click Reset to draw another');
         } else {
@@ -44,12 +44,12 @@ function Pen(map) {
             }
         }
     }
-    this.drawPloygon = function (listOfDots, color, des, id) {
+    this.drawPloygon = function(listOfDots, color, des, id) {
         this.polygon = new Polygon(listOfDots, this.map, this, color, des, id);
         this.deleteMis();
     }
-    this.deleteMis = function () {
-        $.each(this.listOfDots, function (index, value) {
+    this.deleteMis = function() {
+        $.each(this.listOfDots, function(index, value) {
             value.remove();
         });
         this.listOfDots.length = 0;
@@ -58,24 +58,24 @@ function Pen(map) {
             this.polyline = null;
         }
     }
-    this.cancel = function () {
+    this.cancel = function() {
         if (null != this.polygon) {
             (this.polygon.remove());
         }
         this.polygon = null;
         this.deleteMis();
     }
-    this.setCurrentDot = function (dot) {
+    this.setCurrentDot = function(dot) {
         this.currentDot = dot;
     }
-    this.getListOfDots = function () {
+    this.getListOfDots = function() {
         return this.listOfDots;
     }
-    this.getData = function () {
+    this.getData = function() {
         if (this.polygon != null) {
             var data = "";
             var paths = this.polygon.getPlots();
-            paths.getAt(0).forEach(function (value, index) {
+            paths.getAt(0).forEach(function(value, index) {
                 data += (value.toString());
             });
             return data;
@@ -83,7 +83,7 @@ function Pen(map) {
             return null;
         }
     }
-    this.getColor = function () {
+    this.getColor = function() {
         if (this.polygon != null) {
             var color = this.polygon.getColor();
             return color;
@@ -100,23 +100,23 @@ function Dot(latLng, map, pen) {
         position: this.latLng,
         map: map
     });
-    this.addListener = function () {
+    this.addListener = function() {
         var parent = this.parent;
         var thisMarker = this.markerObj;
         var thisDot = this;
-        google.maps.event.addListener(thisMarker, 'click', function () {
+        google.maps.event.addListener(thisMarker, 'click', function() {
             parent.setCurrentDot(thisDot);
             parent.draw(thisMarker.getPosition());
         });
     }
     this.addListener();
-    this.getLatLng = function () {
+    this.getLatLng = function() {
         return this.latLng;
     }
-    this.getMarkerObj = function () {
+    this.getMarkerObj = function() {
         return this.markerObj;
     }
-    this.remove = function () {
+    this.remove = function() {
         this.markerObj.setMap(null);
     }
 }
@@ -124,11 +124,11 @@ function Dot(latLng, map, pen) {
 function Line(listOfDots, map) {
     this.listOfDots = listOfDots;
     this.map = map;
-    this.coords = new Array();
+    this.coords = [];
     this.polylineObj = null;
     if (this.listOfDots.length > 1) {
         var thisObj = this;
-        $.each(this.listOfDots, function (index, value) {
+        $.each(this.listOfDots, function(index, value) {
             thisObj.coords.push(value.getLatLng());
         });
         this.polylineObj = new google.maps.Polyline({
@@ -139,7 +139,7 @@ function Line(listOfDots, map) {
             map: this.map
         });
     }
-    this.remove = function () {
+    this.remove = function() {
         this.polylineObj.setMap(null);
     }
 }
@@ -147,11 +147,11 @@ function Line(listOfDots, map) {
 function Polygon(listOfDots, map, pen, color) {
     this.listOfDots = listOfDots;
     this.map = map;
-    this.coords = new Array();
+    this.coords = [];
     this.parent = pen;
     this.des = 'Hello';
     var thisObj = this;
-    $.each(this.listOfDots, function (index, value) {
+    $.each(this.listOfDots, function(index, value) {
         thisObj.coords.push(value.getLatLng());
     });
     this.polygonObj = new google.maps.Polygon({
@@ -163,26 +163,26 @@ function Polygon(listOfDots, map, pen, color) {
         fillOpacity: 0.35,
         map: this.map
     });
-    this.remove = function () {
+    this.remove = function() {
         this.info.remove();
         this.polygonObj.setMap(null);
     }
-    this.getContent = function () {
+    this.getContent = function() {
         return this.des;
     }
-    this.getPolygonObj = function () {
+    this.getPolygonObj = function() {
         return this.polygonObj;
     }
-    this.getListOfDots = function () {
+    this.getListOfDots = function() {
         return this.listOfDots;
     }
-    this.getPlots = function () {
+    this.getPlots = function() {
         return this.polygonObj.getPaths();
     }
-    this.getColor = function () {
+    this.getColor = function() {
         return this.getPolygonObj().fillColor;
     }
-    this.setColor = function (color) {
+    this.setColor = function(color) {
         return this.getPolygonObj().setOptions({
             fillColor: color,
             strokeColor: color,
@@ -190,10 +190,10 @@ function Polygon(listOfDots, map, pen, color) {
         });
     }
     this.info = new Info(this, this.map);
-    this.addListener = function () {
+    this.addListener = function() {
         var info = this.info;
         var thisPolygon = this.polygonObj;
-        google.maps.event.addListener(thisPolygon, 'rightclick', function (event) {
+        google.maps.event.addListener(thisPolygon, 'rightclick', function(event) {
             info.show(event.latLng);
         });
     }
@@ -208,13 +208,13 @@ function Info(polygon, map) {
     $(this.button).attr('type', 'button');
     $(this.button).val("Change Color");
     var thisOjb = this;
-    this.changeColor = function () {
+    this.changeColor = function() {
         thisOjb.parent.setColor($(thisOjb.color).val());
     }
-    this.getContent = function () {
+    this.getContent = function() {
         var content = document.createElement('div');
         $(this.color).val(this.parent.getColor());
-        $(this.button).click(function () {
+        $(this.button).click(function() {
             thisObj.changeColor();
         });
         $(content).append(this.color);
@@ -225,11 +225,11 @@ function Info(polygon, map) {
     this.infoWidObj = new google.maps.InfoWindow({
         content: thisObj.getContent()
     });
-    this.show = function (latLng) {
+    this.show = function(latLng) {
         this.infoWidObj.setPosition(latLng);
         this.infoWidObj.open(this.map);
     }
-    this.remove = function () {
+    this.remove = function() {
         this.infoWidObj.close();
     }
 }

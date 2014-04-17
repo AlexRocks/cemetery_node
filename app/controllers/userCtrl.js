@@ -6,7 +6,6 @@
 var mongoose = require('mongoose'),
         User = mongoose.model('User'),
         _ = require('lodash');
-;
 
 /**
  * Auth callback
@@ -86,6 +85,10 @@ exports.create = function(req, res, next) {
  * Send User
  */
 exports.me = function(req, res) {
+
+    console.info('exports.me!');
+
+
     res.jsonp(req.user || null);
 };
 
@@ -95,6 +98,9 @@ exports.me = function(req, res) {
  * Find user by id
  */
 exports.user = function(req, res, next, id) {
+
+    console.info('exports.user');
+
     User
             .findOne({
                 _id: id
@@ -114,6 +120,11 @@ exports.user = function(req, res, next, id) {
  * Update
  */
 exports.update = function(req, res) {
+
+    console.log("UPD USER NOW");
+
+
+
     var user = req.user;
 
     user = _.extend(user, req.body);
@@ -151,6 +162,9 @@ exports.destroy = function(req, res) {
  * Show an marker
  */
 exports.show = function(req, res) {
+
+    console.log("Show user");
+
     res.jsonp(req.user);
 };
 

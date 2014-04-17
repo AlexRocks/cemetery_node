@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mean', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ui.router', 'mean.system', 'mean.articles', 'mean.graves', 'mean.cemeterys', 'mean.sections', 'mean.plots', 'mean.markers', 'mean.owners', 'mean.users', 'countrySelect', 'angularFileUpload']);//
+angular.module('mean', ['ngCookies', 'ngResource', 'ngTable', 'ui.bootstrap', 'ui.router', 'mean.system', 'mean.articles', 'mean.graves', 'mean.cemeterys', 'mean.sections', 'mean.plots', 'mean.markers', 'mean.owners', 'mean.users', 'countrySelect', 'angularFileUpload']);//
 
 angular.module('mean.system', []);
 angular.module('mean.articles', []);
