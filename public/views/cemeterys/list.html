@@ -1,11 +1,34 @@
 <section data-ng-controller="CemeterysController" data-ng-init="find()">
-	<ul class="cemeterys unstyled">
-		<li data-ng-repeat="cemetery in Cemeterys">
-			<span>{{cemetery.acmCemetery_created_date | date:'medium'}}</span> /
-			<span>{{cemetery.user.name}}</span>
-			<h2><a data-ng-href="#!/cemeterys/{{cemetery._id}}">{{cemetery._id}}:{{cemetery.acmCemetery_name}}</a></h2>
-			<div>{{cemetery.acmCemetery_description}}</div>
-		</li>
-	</ul>
+	
+	<div class="cemeterys unstyled">	
+		<p><strong>Filter:</strong> {{tableParams.filter() | json}}
+		<table ng-table="tableParams" show-filter="true" class="table">
+			<tr ng-repeat="cemetery in $data">
+				<td data-title="'Date'">
+					{{cemetery.acmCemetery_created_date | date:'medium'}}
+				</td>
+				<td data-title="'Cemetery name'" filter="{ 'acmCemetery_name': 'text' }">
+					{{cemetery.acmCemetery_name}}
+				</td>
+				<td data-title="'User name'" filter="{ 'user.name': 'text' }">
+					{{cemetery.user.name}}
+				</td>
+				<td data-title="'Description'" filter="{ 'acmCemetery_description': 'text' }">
+					{{cemetery.acmCemetery_description}}
+				</td>
+				<td data-title="'Operations'">
+					<div data-ng-show="((global.user._id == cemetery.user._id) || (global.user.level == 1))">
+						<a class="btn" href="/#!/cemeterys/{{cemetery._id}}/edit">
+							<i class="glyphicon glyphicon-edit"></i>
+						</a>
+						<a class="btn" href="/#!/cemeterys/{{cemetery._id}}/remove">
+							<i class="glyphicon glyphicon-trash"></i>
+						</a>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+
 	<h1 data-ng-hide="!Cemeterys || Cemeterys.length">No cemeteries yet. <br> Why don't you <a href="/#!/cemeterys/create">Create One</a>?</h1>
 </section>

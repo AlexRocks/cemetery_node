@@ -99,7 +99,7 @@ exports.me = function(req, res) {
  */
 exports.user = function(req, res, next, id) {
 
-    console.info('exports.user');
+    console.info('exports.user:'+id);
 
     User
             .findOne({
@@ -110,7 +110,7 @@ exports.user = function(req, res, next, id) {
                     return next(err);
                 if (!user)
                     return next(new Error('Failed to load User ' + id));
-                req.profile = user;
+                req.user = user;
                 next();
             });
 };

@@ -132,6 +132,10 @@ angular.module('mean.users').controller('UsersController', ['$scope', '$rootScop
                 Users.get({
                     userId: $stateParams.userId
                 }, function(data) {
+				
+					console.log("$scope.findOne done");
+					console.log(data);
+				
                     $scope.User = data;
                     $scope.isNew = false;
                 });
