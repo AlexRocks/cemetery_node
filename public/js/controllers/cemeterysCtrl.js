@@ -1,28 +1,20 @@
 'use strict';
 
-angular.module('mean.cemeterys').controller('CemeterysController', ['$scope', '$rootScope', '$stateParams', '$location', 'Global', 'Cemeterys', 'ngTableParams', '$filter', function($scope, $rootScope, $stateParams, $location, Global, Cemeterys, ngTableParams, $filter) {
+angular.module('mean.cemeterys').controller('CemeterysController', ['$scope', '$rootScope', '$stateParams', '$location', 'Global', 'Cemeterys', 'ngTableParams', '$filter', '$q', function($scope, $rootScope, $stateParams, $location, Global, Cemeterys, ngTableParams, $filter, $q) {
         $scope.global = Global;
 
         $scope.Cemetery = {};
 		$scope.Cemeterys = [];
         $scope.isNew = true;
-
+		
 		$scope.tableParams = new ngTableParams({
             page: 1, // show first page
             count: 10, // count per page
-            filter: {
-				acmCemetery_name: '',
-				//user.name: '',
-				acmCemetery_description: ''
-            }
         }, {
             total: $scope.Cemeterys.length, // length of data
+			/**/
             getData: function($defer, params) {
                 // use build-in angular filter
-				
-				console.log("filter cem:");
-				console.info(params.filter());
-				
                 var orderedData = params.sorting() ?
                         $filter('orderBy')($scope.Cemeterys, params.orderBy()) :
                         $scope.Cemeterys;
@@ -31,12 +23,25 @@ angular.module('mean.cemeterys').controller('CemeterysController', ['$scope', '$
                         $filter('filter')(orderedData, params.filter()) :
                         orderedData;
 						
-						console.info(orderedData);
-
                 params.total(orderedData.length);
-                $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+				
+				console.log("RESOLVE DATA");
+                //$defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+				
+				if (orderedData.length > 0) {
+				
+					$scope.users1 = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
+
+					params.total(orderedData.length);
+				}
+				$defer.resolve($scope.users1);							
             }
         });
+
+  
+  
+  
+		
 		
         $scope.remove = function(Cemeterys) {
             if (Cemeterys) {
@@ -89,9 +94,23 @@ angular.module('mean.cemeterys').controller('CemeterysController', ['$scope', '$
         };
 
         $scope.find = function() {
+			var deferred = $q.defer();
+		
             Cemeterys.query(function(acmCemeterys) {
+                //$scope.Cemeterys = acmCemeterys;
+				
+				console.log("FIDN END");
+				console.info(acmCemeterys);
                 $scope.Cemeterys = acmCemeterys;
+				
+				deferred.resolve(acmCemeterys);
+				// $scope.$apply(function() {
+				
+					
+                // });				
             });
+			
+			$scope.Cemeterys = deferred.promise;
         };
 
         $scope.findOne = function() {

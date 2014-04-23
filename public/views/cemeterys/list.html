@@ -1,19 +1,21 @@
 <section data-ng-controller="CemeterysController" data-ng-init="find()">
 	
 	<div class="cemeterys unstyled">	
+		<p><strong>Sorting:</strong> {{tableParams.sorting()|json}}
 		<p><strong>Filter:</strong> {{tableParams.filter() | json}}
+		<p><strong>Datas:</strong> {{Cemeterys | json}}
 		<table ng-table="tableParams" show-filter="true" class="table">
 			<tr ng-repeat="cemetery in $data">
-				<td data-title="'Date'">
+				<td data-title="'Date'" sortable="'acmCemetery_created_date'" >
 					{{cemetery.acmCemetery_created_date | date:'medium'}}
 				</td>
-				<td data-title="'Cemetery name'" filter="{ 'acmCemetery_name': 'text' }">
+				<td data-title="'Cemetery name'" sortable="'acmCemetery_name'" filter="{ 'acmCemetery_name': 'text' }">
 					{{cemetery.acmCemetery_name}}
 				</td>
-				<td data-title="'User name'" filter="{ 'user.name': 'text' }">
+				<td data-title="'Username'" filter="{ 'user': 'text' }">
 					{{cemetery.user.name}}
 				</td>
-				<td data-title="'Description'" filter="{ 'acmCemetery_description': 'text' }">
+				<td data-title="'Description'" sortable="'acmCemetery_description'" filter="{ 'acmCemetery_description': 'text' }">
 					{{cemetery.acmCemetery_description}}
 				</td>
 				<td data-title="'Operations'">
@@ -21,7 +23,7 @@
 						<a class="btn" href="/#!/cemeterys/{{cemetery._id}}/edit">
 							<i class="glyphicon glyphicon-edit"></i>
 						</a>
-						<a class="btn" href="/#!/cemeterys/{{cemetery._id}}/remove">
+						<a class="btn" href="" ng-confirm-click="remove(cemetery._id)">
 							<i class="glyphicon glyphicon-trash"></i>
 						</a>
 					</div>
