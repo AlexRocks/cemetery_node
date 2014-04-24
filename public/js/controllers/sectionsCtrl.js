@@ -40,11 +40,12 @@ angular.module('mean.sections').controller('SectionsController', ['$scope', '$ro
                 for (var i in $scope.Sections) {
 					console.log($scope.Sections[i]._id);
                     if ($scope.Sections[i]._id === id) {
-						$scope.Sections[i].$remove();
+						$scope.Sections[i].$remove(function() {
+							$location.path('sections');
+						});
                         $scope.Sections.splice(i, 1);
                     }
                 }
-				$location.path('sections');
             }
         };
 
