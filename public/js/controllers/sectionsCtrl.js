@@ -5,12 +5,13 @@
  section_description: {
 
  */
-angular.module('mean.sections').controller('SectionsController', ['$scope', '$rootScope', '$stateParams', '$location', 'Global', 'Sections', 'Cemetery', 'Cem', function($scope, $rootScope, $stateParams, $location, Global, Sections, Cemetery, Cem) {
+angular.module('mean.sections').controller('SectionsController', ['$scope', '$rootScope', '$stateParams', '$location', 'Global', 'Sections', 'Cemetery', 'Cem', 'ngTableParams', '$filter', '$q', function($scope, $rootScope, $stateParams, $location, Global, Sections, Cemetery, Cem, ngTableParams, $filter, $q) {
         $scope.global = Global;
 
         $scope.Section = {};
         $scope.isNew = true;
         $scope.cemeteries = Cem.getAll();//Cemetery.query();//
+		$scope.Sections = [];
 
         $scope.create = function() {
 
@@ -23,11 +24,27 @@ angular.module('mean.sections').controller('SectionsController', ['$scope', '$ro
                     if ($scope.Sections[i] === Sections) {
                         $scope.Sections.splice(i, 1);
                     }
-                }
+                }				
             }
             else {
                 $scope.Section.$remove();
                 $location.path('sections');
+            }
+        };
+		
+		$scope.removeid = function(id) {
+		
+			console.log(id);
+		
+            if (id) {
+                for (var i in $scope.Sections) {
+					console.log($scope.Sections[i]._id);
+                    if ($scope.Sections[i]._id === id) {
+						$scope.Sections[i].$remove();
+                        $scope.Sections.splice(i, 1);
+                    }
+                }
+				$location.path('sections');
             }
         };
 
@@ -101,6 +118,37 @@ angular.module('mean.sections').controller('SectionsController', ['$scope', '$ro
 //        });
         };
 
+		$scope.tableParams = new ngTableParams({
+            page: 1, // show first page
+            count: 10, // count per page
+			filter: {
+				section_name: '',
+				// user: '',
+				// section_description: ''
+            },
+			sorting: {
+				name: 'asc'     // initial sorting
+			}
+        }, {
+            total: $scope.Sections.length, // length of data
+            getData: function($defer, params) {
+                // use build-in angular filter
+                var orderedData = params.sorting() ?
+                        $filter('orderBy')($scope.Sections, params.orderBy()) :
+                        $scope.Sections;
+
+                orderedData = params.filter() ?
+                        $filter('filter')(orderedData, params.filter()) :
+                        orderedData;
+						
+                params.total(orderedData.length);
+
+				if (orderedData.length > 0) {				
+					$scope.pageData = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());			
+				}
+				$defer.resolve($scope.pageData);							
+            }
+        });
 
         $rootScope.$on('polmap:coordsSelected', function(event, data) {
             if ($scope.Section) {

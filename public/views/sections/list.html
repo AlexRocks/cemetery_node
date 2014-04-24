@@ -1,11 +1,41 @@
 <section data-ng-controller="SectionsController" data-ng-init="find()">
-	<ul class="cemeterys unstyled">
+	<!--<ul class="cemeterys unstyled">
 		<li data-ng-repeat="data in Sections">
 			<span>{{data.section_created_date | date:'medium'}}</span> /
 			<span>{{data.user.name}}</span>
 			<h2><a data-ng-href="#!/sections/{{data._id}}">{{data._id}}:{{data.section_name}}</a></h2>
 			<div>{{data.section_description}}</div>
 		</li>
-	</ul>
+	</ul>-->
+	
+	<div class="cemeterys unstyled">	
+		<table ng-table="tableParams" show-filter="true" class="table">
+			<tr ng-repeat="item in $data">
+				<td data-title="'Date'" sortable="'section_created_date'" >
+					{{item.section_created_date | date:'medium'}}
+				</td>
+				<td data-title="'Name'" sortable="'section_name'" filter="{ 'section_name': 'text' }">
+					{{item.section_name}}
+				</td>
+				<td data-title="'Username'" sortable="'user.name'" filter="{ 'user': 'text' }">
+					{{item.user.name}}
+				</td>
+				<td data-title="'Description'" sortable="'section_description'" filter="{ 'section_description': 'text' }">
+					{{item.section_description}}
+				</td>
+				<td data-title="'Operations'">
+					<div data-ng-show="((global.user._id == item.user._id) || (global.user.level == 1))">
+						<a class="btn" href="/#!/sections/{{item._id}}/edit">
+							<i class="glyphicon glyphicon-edit"></i>
+						</a>
+						<a class="btn" href="" ng-click="removeid(item._id)" confirmation-needed="Really Delete?">
+							<i class="glyphicon glyphicon-trash"></i>
+						</a>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
 	<h1 data-ng-hide="!Sections || Sections.length">No Sections yet. <br> Why don't you <a href="/#!/sections/create">Create One</a>?</h1>
 </section>

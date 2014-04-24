@@ -7,42 +7,6 @@ angular.module('mean.cemeterys').controller('CemeterysController', ['$scope', '$
 		$scope.Cemeterys = [];
         $scope.isNew = true;
 		
-		$scope.tableParams = new ngTableParams({
-            page: 1, // show first page
-            count: 10, // count per page
-        }, {
-            total: $scope.Cemeterys.length, // length of data
-			/**/
-            getData: function($defer, params) {
-                // use build-in angular filter
-                var orderedData = params.sorting() ?
-                        $filter('orderBy')($scope.Cemeterys, params.orderBy()) :
-                        $scope.Cemeterys;
-
-                orderedData = params.filter() ?
-                        $filter('filter')(orderedData, params.filter()) :
-                        orderedData;
-						
-                params.total(orderedData.length);
-				
-				console.log("RESOLVE DATA");
-                //$defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-				
-				if (orderedData.length > 0) {
-				
-					$scope.users1 = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
-
-					params.total(orderedData.length);
-				}
-				$defer.resolve($scope.users1);							
-            }
-        });
-
-  
-  
-  
-		
-		
         $scope.remove = function(Cemeterys) {
             if (Cemeterys) {
                 Cemeterys.$remove();
@@ -94,23 +58,14 @@ angular.module('mean.cemeterys').controller('CemeterysController', ['$scope', '$
         };
 
         $scope.find = function() {
-			var deferred = $q.defer();
+			//var deferred = $q.defer();
 		
             Cemeterys.query(function(acmCemeterys) {
-                //$scope.Cemeterys = acmCemeterys;
-				
-				console.log("FIDN END");
-				console.info(acmCemeterys);
                 $scope.Cemeterys = acmCemeterys;
-				
-				deferred.resolve(acmCemeterys);
-				// $scope.$apply(function() {
-				
-					
-                // });				
+				//deferred.resolve(acmCemeterys);		
             });
 			
-			$scope.Cemeterys = deferred.promise;
+			//$scope.Cemeterys = deferred.promise;
         };
 
         $scope.findOne = function() {
@@ -123,6 +78,40 @@ angular.module('mean.cemeterys').controller('CemeterysController', ['$scope', '$
             });
         };
 
+		$scope.tableParams = new ngTableParams({
+            page: 1, // show first page
+            count: 10, // count per page
+			filter: {
+				acmCemetery_name: '',
+				user: '',
+				acmCemetery_description: ''
+            },
+			sorting: {
+				name: 'asc'     // initial sorting
+			}
+        }, {
+            total: $scope.Cemeterys.length, // length of data
+            getData: function($defer, params) {
+                // use build-in angular filter
+                var orderedData = params.sorting() ?
+                        $filter('orderBy')($scope.Cemeterys, params.orderBy()) :
+                        $scope.Cemeterys;
+
+                orderedData = params.filter() ?
+                        $filter('filter')(orderedData, params.filter()) :
+                        orderedData;
+						
+                params.total(orderedData.length);
+
+				if (orderedData.length > 0) {				
+					$scope.pageData = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
+					params.total(orderedData.length);
+				}
+				$defer.resolve($scope.pageData);							
+            }
+        });
+		
+		
         $rootScope.$on('map:pointSelected', function(event, data) {
             if ($scope.Cemetery) {
                 $scope.Cemetery.acmCemetery_gps = data.position;

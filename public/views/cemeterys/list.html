@@ -1,9 +1,5 @@
-<section data-ng-controller="CemeterysController" data-ng-init="find()">
-	
+<section data-ng-controller="CemeterysController" data-ng-init="find()">	
 	<div class="cemeterys unstyled">	
-		<p><strong>Sorting:</strong> {{tableParams.sorting()|json}}
-		<p><strong>Filter:</strong> {{tableParams.filter() | json}}
-		<p><strong>Datas:</strong> {{Cemeterys | json}}
 		<table ng-table="tableParams" show-filter="true" class="table">
 			<tr ng-repeat="cemetery in $data">
 				<td data-title="'Date'" sortable="'acmCemetery_created_date'" >
@@ -12,7 +8,7 @@
 				<td data-title="'Cemetery name'" sortable="'acmCemetery_name'" filter="{ 'acmCemetery_name': 'text' }">
 					{{cemetery.acmCemetery_name}}
 				</td>
-				<td data-title="'Username'" filter="{ 'user': 'text' }">
+				<td data-title="'Username'" sortable="'user.name'" filter="{ 'user': 'text' }">
 					{{cemetery.user.name}}
 				</td>
 				<td data-title="'Description'" sortable="'acmCemetery_description'" filter="{ 'acmCemetery_description': 'text' }">
