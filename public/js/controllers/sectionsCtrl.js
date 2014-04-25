@@ -33,9 +33,6 @@ angular.module('mean.sections').controller('SectionsController', ['$scope', '$ro
         };
 		
 		$scope.removeid = function(id) {
-		
-			console.log(id);
-		
             if (id) {
                 for (var i in $scope.Sections) {
 					console.log($scope.Sections[i]._id);
@@ -81,6 +78,7 @@ angular.module('mean.sections').controller('SectionsController', ['$scope', '$ro
 
         $scope.find = function() {
             Sections.query(function(data) {
+				console.info("sec:", data);
                 $scope.Sections = data;
             });
         };

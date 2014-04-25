@@ -34,8 +34,9 @@ angular.module('mean').factory('Cem', ['$http', '$rootScope', function($http, $r
 
         service.getAll = function() {
             if (!(places.length > 0)) {
-                getCemeteries().then(function() {
-                    return places;
+                getCemeteries().then(function(data) {
+                    // return places;
+					return data;
                 });
             } else {
                 return places;

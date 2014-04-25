@@ -22,6 +22,21 @@ angular.module('mean.cemeterys').controller('CemeterysController', ['$scope', '$
             }
         };
 
+		$scope.removeid = function(id) {
+            if (id) {
+                for (var i in $scope.Cemeterys) {
+					console.log($scope.Cemeterys[i]._id);
+                    if ($scope.Cemeterys[i]._id === id) {
+						$scope.Cemeterys[i].$remove(function() {
+							console.log("gjgjgjg");
+							$location.path('cemeterys');
+						});
+                        $scope.Cemeterys.splice(i, 1);
+                    }
+                }
+            }
+        };
+		
         $scope.update = function() {
 
             var acmCemetery = $scope.Cemetery;

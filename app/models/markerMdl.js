@@ -81,6 +81,10 @@ var MarkerModelSchema = new Schema({
         type: Schema.ObjectId,
         ref: 'User'
     },
+	cemetery: {
+        type: Schema.ObjectId,
+        ref: 'CemeteryModel'
+    },
     section: {
         type: Schema.ObjectId,
         ref: 'Section'

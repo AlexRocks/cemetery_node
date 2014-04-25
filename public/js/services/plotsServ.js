@@ -11,6 +11,7 @@ angular.module('mean.plots').factory('Plots', ['$resource', function($resource) 
     });
 }]);
 
+/*
 angular.module('mean.plots').factory('Cemetery', ['$resource', function($resource) {
     return $resource('/cemeterys', {}, {});
   }]);
@@ -18,3 +19,4 @@ angular.module('mean.plots').factory('Cemetery', ['$resource', function($resourc
 angular.module('mean.plots').factory('Section', ['$resource', function($resource) {
     return $resource('/sections', {}, {});
   }]);  
+  */

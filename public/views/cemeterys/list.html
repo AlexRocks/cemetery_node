@@ -1,25 +1,25 @@
 <section data-ng-controller="CemeterysController" data-ng-init="find()">	
 	<div class="cemeterys unstyled">	
 		<table ng-table="tableParams" show-filter="true" class="table">
-			<tr ng-repeat="cemetery in $data">
+			<tr ng-repeat="item in $data">
 				<td data-title="'Date'" sortable="'acmCemetery_created_date'" >
-					{{cemetery.acmCemetery_created_date | date:'medium'}}
+					{{item.acmCemetery_created_date | date:'medium'}}
 				</td>
 				<td data-title="'Cemetery name'" sortable="'acmCemetery_name'" filter="{ 'acmCemetery_name': 'text' }">
-					{{cemetery.acmCemetery_name}}
+					{{item.acmCemetery_name}}
 				</td>
 				<td data-title="'Username'" sortable="'user.name'" filter="{ 'user': 'text' }">
-					{{cemetery.user.name}}
+					{{item.user.name}}
 				</td>
 				<td data-title="'Description'" sortable="'acmCemetery_description'" filter="{ 'acmCemetery_description': 'text' }">
-					{{cemetery.acmCemetery_description}}
+					{{item.acmCemetery_description}}
 				</td>
 				<td data-title="'Operations'">
-					<div data-ng-show="((global.user._id == cemetery.user._id) || (global.user.level == 1))">
-						<a class="btn" href="/#!/cemeterys/{{cemetery._id}}/edit">
+					<div data-ng-show="((global.user._id == item.user._id) || (global.user.level == 1))">
+						<a class="btn" href="/#!/cemeterys/{{item._id}}/edit">
 							<i class="glyphicon glyphicon-edit"></i>
 						</a>
-						<a class="btn" href="" ng-confirm-click="remove(cemetery._id)">
+						<a class="btn" href="" ng-click="removeid(item._id)" confirmation-needed="Really Delete?">
 							<i class="glyphicon glyphicon-trash"></i>
 						</a>
 					</div>

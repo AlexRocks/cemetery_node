@@ -46,8 +46,9 @@ angular.module('mean').factory('Section2', ['$http', '$rootScope', function($htt
 
         service.getAll = function() {
             if (places.length <= 0) {
-                getSections().then(function() {
-                    return places;
+                getSections().then(function(data) {
+					return data;
+                    // return places;
                 });
             } else {
                 return places;
