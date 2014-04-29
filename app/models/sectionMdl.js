@@ -85,7 +85,7 @@ SectionModelSchema.path('section_name').validate(function(section_name) {
 SectionModelSchema.statics.load = function(id, cb) {
     this.findOne({
         _id: id
-    }).populate('user', 'name username').exec(cb);
+    }).populate('cemetery').populate('user', 'name username').exec(cb);
 };
 
 mongoose.model('SectionModel', SectionModelSchema);

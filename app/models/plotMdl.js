@@ -13,6 +13,8 @@ Description: This is a free flowing text box that can contain any inforamation t
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
+	// Section = mongoose.model('SectionModel'),
+	// Cemetery = mongoose.model('CemeteryModel'),
     Schema = mongoose.Schema;
 
 
@@ -75,10 +77,13 @@ var PlotModelSchema = new Schema({
         type: Schema.ObjectId,
         ref: 'User'
     },
-    
+    cemetery: {
+        type: Schema.ObjectId,
+        ref: 'CemeteryModel'
+    },
     section: {
         type: Schema.ObjectId,
-        ref: 'Section'
+        ref: 'SectionModel'
     }
 });
 
@@ -93,9 +98,10 @@ PlotModelSchema.path('plot_name').validate(function(plot_name) {
  * Statics
  */
 PlotModelSchema.statics.load = function(id, cb) {
+	console.log("PlotModelSchema.statics.load");
     this.findOne({
         _id: id
-    }).populate('user', 'name username').exec(cb);
+    }).populate('cemetery').populate('section', 'section_name').populate('user', 'name username').exec(cb);
 };
 
 mongoose.model('PlotModel', PlotModelSchema);

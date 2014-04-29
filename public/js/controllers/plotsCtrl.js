@@ -5,14 +5,12 @@
  plot_description: {
 
  */
-angular.module('mean.plots').controller('PlotsController', ['$scope', '$rootScope', '$stateParams', '$location', 'Global', 'Plots', 'Cemetery', 'Section', 'Cem', function($scope, $rootScope, $stateParams, $location, Global, Plots, Cemetery, Section, Cem) {
+angular.module('mean.plots').controller('PlotsController', ['$scope', '$rootScope', '$stateParams', '$location', 'Global', 'Plots', 'Cemetery', 'Section', 'Cem', 'Section2', function($scope, $rootScope, $stateParams, $location, Global, Plots, Cemetery, Section, Cem, Section2) {
         $scope.global = Global;
 
         $scope.Plot = {};
+		$scope.Plots = [];
         $scope.isNew = true;
-
-        $scope.cemeteries = Cem.getAll();//Cemetery.query();
-        $scope.sections = Section.query();
 
         $scope.create = function() {
 
@@ -30,6 +28,20 @@ angular.module('mean.plots').controller('PlotsController', ['$scope', '$rootScop
             else {
                 $scope.Plot.$remove();
                 $location.path('plots');
+            }
+        };
+		
+		$scope.removeid = function(id) {
+            if (id) {
+                for (var i in $scope.Plots) {
+					console.log($scope.Plots[i]._id);
+                    if ($scope.Plots[i]._id === id) {
+						$scope.Plots[i].$remove(function() {
+							$location.path('plots');
+						});
+                        $scope.Plots.splice(i, 1);
+                    }
+                }
             }
         };
 
@@ -70,12 +82,16 @@ angular.module('mean.plots').controller('PlotsController', ['$scope', '$rootScop
         };
 
         $scope.find = function() {
+			console.log("get plots");
             Plots.query(function(data) {
                 $scope.Plots = data;
+				$scope.cemeteries = Cem.getAll();//Cemetery.query();
+				$scope.sections = Section2.getAll();//Section.query();
             });
         };
 
         $scope.findOne = function() {
+			console.log("findOne plot");
             if ($stateParams.plotId) {
                 Plots.get({
                     plotId: $stateParams.plotId

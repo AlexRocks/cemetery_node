@@ -12,9 +12,6 @@ var mongoose = require('mongoose'),
  * Find acmCemetery by id
  */
 exports.acmCemetery = function(req, res, next, id) {
-    console.log("----------------!!!!!!!!!!!!");
-
-
     Cemetery.load(id, function(err, acmCemetery) {
         if (err)
             return next(err);

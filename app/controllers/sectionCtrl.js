@@ -26,7 +26,8 @@ exports.section = function(req, res, next, id) {
 exports.create = function(req, res) {
     var section = new Section(req.body);
     section.user = req.user;
-
+	section.cemetery = req.body.section_cemetery_id;
+	
     section.save(function(err) {
         if (err) {
             return res.send('users/signup', {
@@ -45,6 +46,7 @@ exports.create = function(req, res) {
 exports.update = function(req, res) {
     var section = req.section;
     section = _.extend(section, req.body);
+	section.cemetery = req.body.section_cemetery_id;
     section.save(function(err) {
         if (err) {
             return res.send('users/signup', {
@@ -86,7 +88,7 @@ exports.show = function(req, res) {
  * List of sections
  */
 exports.all = function(req, res) {
-    Section.find().sort('-created').populate('user', 'name username').exec(function(err, sections) {
+    Section.find().sort('-created').populate('cemetery', 'acmCemetery_name').populate('user', 'name username').exec(function(err, sections) {
         if (err) {
             res.render('error', {
                 status: 500
@@ -100,13 +102,8 @@ exports.all = function(req, res) {
 /**
  * List of sections of cemetery
  */
-exports.showCemeterySection = function(req, res) {
-    
-    console.log(req);
-
-
-    
-    Section.find().sort('-created').populate('user', 'name username').exec(function(err, sections) {
+exports.showCemeterySection = function(req, res) {   
+    Section.find().sort('-created').populate('cemetery', 'acmCemetery_name').populate('user', 'name username').exec(function(err, sections) {
         if (err) {
             res.render('error', {
                 status: 500
