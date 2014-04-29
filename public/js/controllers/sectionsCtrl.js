@@ -3,15 +3,14 @@
  section_name: {
  section_gps: {
  section_description: {
-
+ 
  */
-angular.module('mean.sections').controller('SectionsController', ['$scope', '$rootScope', '$stateParams', '$location', 'Global', 'Sections', 'Cemetery', 'Cem', 'ngTableParams', '$filter', '$q', function($scope, $rootScope, $stateParams, $location, Global, Sections, Cemetery, Cem, ngTableParams, $filter, $q) {
+angular.module('mean.sections').controller('SectionsController', ['$scope', '$rootScope', '$stateParams', '$location', 'Global', 'Sections', 'Cemetery', 'AllCemeteries', 'ngTableParams', '$filter', '$q', function($scope, $rootScope, $stateParams, $location, Global, Sections, Cemetery, AllCemeteries, ngTableParams, $filter, $q) {
         $scope.global = Global;
 
         $scope.Section = {};
-        $scope.isNew = true;
-        $scope.cemeteries = Cem.getAll();//Cemetery.query();//
-		$scope.Sections = [];
+        $scope.isNew = true;        
+        $scope.Sections = [];
 
         $scope.create = function() {
 
@@ -24,22 +23,22 @@ angular.module('mean.sections').controller('SectionsController', ['$scope', '$ro
                     if ($scope.Sections[i] === Sections) {
                         $scope.Sections.splice(i, 1);
                     }
-                }				
+                }
             }
             else {
                 $scope.Section.$remove();
                 $location.path('sections');
             }
         };
-		
-		$scope.removeid = function(id) {
+
+        $scope.removeid = function(id) {
             if (id) {
                 for (var i in $scope.Sections) {
-					console.log($scope.Sections[i]._id);
+                    console.log($scope.Sections[i]._id);
                     if ($scope.Sections[i]._id === id) {
-						$scope.Sections[i].$remove(function() {
-							$location.path('sections');
-						});
+                        $scope.Sections[i].$remove(function() {
+                            $location.path('sections');
+                        });
                         $scope.Sections.splice(i, 1);
                     }
                 }
@@ -78,7 +77,7 @@ angular.module('mean.sections').controller('SectionsController', ['$scope', '$ro
 
         $scope.find = function() {
             Sections.query(function(data) {
-				console.info("sec:", data);
+                console.info("sec:", data);
                 $scope.Sections = data;
             });
         };
@@ -91,10 +90,13 @@ angular.module('mean.sections').controller('SectionsController', ['$scope', '$ro
                 $rootScope.$broadcast('polmap:show', data.section_gps.triangleCoords);
                 $scope.Section = data;
             });
+            AllCemeteries.getAll().then(function(data) {
+                $scope.cemeteries = data;
+            });//Cemetery.query();//
         };
 
         $scope.changeCemetery = function(data) {
-            Cem.get(data).then(function(res) {
+            AllCemeteries.get(data).then(function(res) {
                 if (res !== null) {
                     $rootScope.$broadcast('polmap:centerpoint', {'position': res.acmCemetery_gps});
                 }
@@ -117,17 +119,18 @@ angular.module('mean.sections').controller('SectionsController', ['$scope', '$ro
 //        });
         };
 
-		$scope.tableParams = new ngTableParams({
+
+        $scope.tableParams = new ngTableParams({
             page: 1, // show first page
             count: 10, // count per page
-			filter: {
-				section_name: '',
-				// user: '',
-				// section_description: ''
+            filter: {
+                section_name: '',
+                // user: '',
+                // section_description: ''
             },
-			sorting: {
-				name: 'asc'     // initial sorting
-			}
+            sorting: {
+                name: 'asc'     // initial sorting
+            }
         }, {
             total: $scope.Sections.length, // length of data
             getData: function($defer, params) {
@@ -139,13 +142,13 @@ angular.module('mean.sections').controller('SectionsController', ['$scope', '$ro
                 orderedData = params.filter() ?
                         $filter('filter')(orderedData, params.filter()) :
                         orderedData;
-						
+
                 params.total(orderedData.length);
 
-				if (orderedData.length > 0) {				
-					$scope.pageData = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());			
-				}
-				$defer.resolve($scope.pageData);							
+                if (orderedData.length > 0) {
+                    $scope.pageData = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
+                }
+                $defer.resolve($scope.pageData);
             }
         });
 

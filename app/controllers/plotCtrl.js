@@ -32,6 +32,10 @@ exports.plot = function(req, res, next, id) {
  * Create an plot
  */
 exports.create = function(req, res) {
+    
+    console.info("Create an plot");
+
+    
     var plot = new Plot(req.body);
     plot.user = req.user;
 	
@@ -39,6 +43,9 @@ exports.create = function(req, res) {
 	
         if (err) return next(err);
         if (!section) return next(new Error('Failed to load section ' + id));
+        
+                console.info(section);
+
         
 		plot.section = section._id;
 		plot.cemetery = section.cemetery._id;
@@ -116,7 +123,7 @@ exports.show = function(req, res) {
  */
 exports.all = function(req, res) {
 	console.log("List of plots");
-    Plot.find().sort('-created')/*.populate('section').populate('cemetery')*/.populate('user', 'name username').exec(function(err, plots) {
+    Plot.find().sort('-created').populate('section').populate('cemetery').populate('user', 'name username').exec(function(err, plots) {
         if (err) {
             res.render('error', {
                 status: 500

@@ -11,12 +11,16 @@ angular.module('mean.cemeterys').factory('Cemeterys', ['$resource', function($re
         });
     }]);
 
-angular.module('mean').factory('Cem', ['$http', '$rootScope', function($http, $rootScope) {
+angular.module('mean').factory('AllCemeteries', ['$http', '$rootScope', function($http, $rootScope) {
 
         var places = [];
 
         function getCemeteries() {
             var dfd = $.Deferred();
+            
+            console.log("Get Cem");
+
+            
             $http({method: 'GET', url: 'cemeterys'})
                     .success(function(data, status, headers, config) {
                         places = data;
@@ -33,15 +37,17 @@ angular.module('mean').factory('Cem', ['$http', '$rootScope', function($http, $r
         var service = {};
 
         service.getAll = function() {
-            if (!(places.length > 0)) {
-                getCemeteries().then(function(data) {
-                    // return places;
-					return data;
+            var dfd = $.Deferred();  
+            if (!places || (places.length == 0)) {
+                var places = null;
+                getCemeteries().then(function(data) {                   
+                    dfd.resolve(data);
                 });
             } else {
-                return places;
+                dfd.resolve(places);
             }
-
+            
+            return dfd.promise();
         };
 
         service.get = function(id) {

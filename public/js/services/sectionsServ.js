@@ -23,7 +23,7 @@ angular.module('mean.sections').factory('Cemetery', ['$resource', function($reso
     }]);
 
 
-angular.module('mean').factory('Section2', ['$http', '$rootScope', function($http, $rootScope) {
+angular.module('mean').factory('AllSections', ['$http', '$rootScope', function($http, $rootScope) {
 
         var places = [];
 
@@ -45,15 +45,16 @@ angular.module('mean').factory('Section2', ['$http', '$rootScope', function($htt
         var service = {};
 
         service.getAll = function() {
-            if (places.length <= 0) {
-                getSections().then(function(data) {
-					return data;
-                    // return places;
+            var dfd = $.Deferred();  
+            if (!places || (places.length == 0)) {
+                var places = null;
+                getSections().then(function(data) {                   
+                    dfd.resolve(data);
                 });
             } else {
-                return places;
-            }
-
+                dfd.resolve(places);
+            }            
+            return dfd.promise();
         };
 
         service.get = function(id) {

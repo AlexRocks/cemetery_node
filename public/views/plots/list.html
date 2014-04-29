@@ -1,11 +1,41 @@
 <section data-ng-controller="PlotsController" data-ng-init="find()">
-	<ul class="plots unstyled">
+<!--	<ul class="plots unstyled">
 		<li data-ng-repeat="plot in Plots">
 			<span>{{plot.plot_created_date | date:'medium'}}</span> /
 			<span>{{plot.user.name}}</span>
 			<h2><a data-ng-href="#!/plots/{{plot._id}}">{{plot.plot_name}}</a></h2>
 			<div>{{plot.plot_description}}</div>
 		</li>
-	</ul>
+	</ul>-->
+        <table ng-table="tableParams" show-filter="true" class="table">
+            <tr ng-repeat="item in $data">
+                <td data-title="'Date'" sortable="'section_created_date'" >
+                    {{item.plot_created_date | date:'medium'}}
+                </td>
+                <td data-title="'User'" sortable="'user.name'" filter="{ 'user': 'text' }">
+                    {{item.user.name}}
+                </td>
+                <td data-title="'Cemetery'" sortable="'cemetery.acmCemetery_name'" filter="{ 'cemetery': 'text' }">
+                    {{item.cemetery.acmCemetery_name}}/{{item.section.section_name}}
+                </td>
+                <td data-title="'Name'" sortable="'plot_name'" filter="{ 'section_name': 'text' }">
+                    {{item.plot_name}}
+                </td>				
+                <td data-title="'Description'" sortable="'section_description'" filter="{ 'section_description': 'text' }">
+                    {{item.plot_description}}
+                </td>
+                <td data-title="'Operations'">
+                    <div data-ng-show="((global.user._id == item.user._id) || (global.user.level == 1))">
+                        <a class="btn" href="/#!/plots/{{item._id}}/edit">
+                            <i class="glyphicon glyphicon-edit"></i>
+                        </a>
+                        <a class="btn" href="" ng-click="removeid(item._id)" confirmation-needed="Really Delete?">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    
 	<h1 data-ng-hide="!Plots || Plots.length">No plots yet. <br> Why don't you <a href="/#!/plots/create">Create One</a>?</h1>
 </section>
