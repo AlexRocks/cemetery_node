@@ -1,43 +1,77 @@
 'use strict';
 
-angular.module('mean.cemeterys').controller('CemeterysController', ['$scope', '$rootScope', '$stateParams', '$location', 'Global', 'Cemeterys', 'ngTableParams', '$filter', function($scope, $rootScope, $stateParams, $location, Global, Cemeterys, ngTableParams, $filter) {
+angular.module('mean.cemeterys').controller('CemeterysController', ['$scope', '$rootScope', '$stateParams', '$location', 'Global', 'Cemeterys', 'ngTableParams', '$filter', '$q', function($scope, $rootScope, $stateParams, $location, Global, Cemeterys, ngTableParams, $filter, $q) {
         $scope.global = Global;
 
         $scope.Cemetery = {};
-		$scope.Cemeterys = [];
+        $scope.Cemeterys = [];
         $scope.isNew = true;
 
-		$scope.tableParams = new ngTableParams({
+        $scope.tableParams = new ngTableParams({
             page: 1, // show first page
             count: 10, // count per page
             filter: {
-				acmCemetery_name: '',
-				//user.name: '',
-				acmCemetery_description: ''
+                acmCemetery_name: '',
+                //user.name: '',
+                acmCemetery_description: ''
             }
         }, {
             total: $scope.Cemeterys.length, // length of data
             getData: function($defer, params) {
                 // use build-in angular filter
-				
-				console.log("filter cem:");
-				console.info(params.filter());
-				
+
+                console.log("filter cem:");
+                console.info(params.filter());
+
                 var orderedData = params.sorting() ?
                         $filter('orderBy')($scope.Cemeterys, params.orderBy()) :
                         $scope.Cemeterys;
 
+                console.info(orderedData);
+
                 orderedData = params.filter() ?
                         $filter('filter')(orderedData, params.filter()) :
                         orderedData;
-						
-						console.info(orderedData);
+
+                console.info(orderedData);
 
                 params.total(orderedData.length);
                 $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
             }
         });
-		
+
+        var inArray = Array.prototype.indexOf ?
+                function(val, arr) {
+                    return arr.indexOf(val);
+                } :
+                function(val, arr) {
+                    var i = arr.length;
+                    while (i--) {
+                        if (arr[i] === val)
+                            return i;
+                    }
+                    return -1;
+                };
+        $scope.names = function(column) {
+            var def = $q.defer(),
+                    arr = [],
+                    names = [];
+            angular.forEach($scope.Cemeterys, function(item) {
+                if (inArray(item.name, arr) === -1) {
+                    arr.push(item.name);
+                    names.push({
+                        'id': item.name,
+                        'title': item.name
+                    });
+                }
+            });
+            def.resolve(names);
+            return def;
+        };
+
+
+
+
         $scope.remove = function(Cemeterys) {
             if (Cemeterys) {
                 Cemeterys.$remove();
