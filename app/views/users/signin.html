@@ -1,24 +1,29 @@
 {% extends 'auth.html' %}
 
 {% block auth %}
-    <form class="signin form-horizontal" action="/users/session" method="post">
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="email">Email</label>
-            <div class="col-md-8">
-                <input id="email" class="form-control" type="text" name="email" placeholder="Email">
+    <div class="signin_checkmark">
+        <img src="../img/signin/Checkmark.png" alt="SIGNIN"/>
+    </div>
+    <div class="signin_welcome">
+        <div class="welcome">Welcome back, friend.</div>
+        Don’t have an account yet? <a href="signup">Register now</a>.
+    </div>
+    <div class="arrow_box">
+        <form class="signin form-horizontal" action="/users/session" method="post">
+            <div class="form-group">
+                    <input id="email" class="form-control form-input-username" type="text" name="email" placeholder="Email">
             </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="password">Password</label>
-            <div class="col-md-8">
-                <input id="password" class="form-control" type="password" name="password" placeholder="Password">
+            <div class="form-group">
+                    <input id="password" class="form-control form-input-password" type="password" name="password" placeholder="Password">
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-4 col-md-8">
-                <button class="btn btn-primary" type="submit">Sign in</button>&nbsp;
-                or&nbsp;<a class="show-signup" href="/signup">Sign up</a>
+            <div class="form-group">
+                    <button class="btn-signin" type="submit">LOG IN</button>
             </div>
-        </div>
-    </form>
+            <div class="form-group">
+                <div class="fsignin">                
+                    <a href="forgotpass" class="forgotpass">Forgot your password</a>?
+                </div>
+            </div>        
+        </form>
+    </div>
 {% endblock %}

@@ -1,30 +1,33 @@
 {% extends 'auth.html' %}
 
 {% block auth %}
-<form class="signin form-horizontal" action="/users" method="post">
-    <div class="form-group">
-        <label class="col-md-4 control-label" for="name">Full Name</label>
-        <div class="col-md-8">
-            <input id="name" class="form-control" type="text" name="name" placeholder="Full Name" value="{{user.name}}" />
-        </div>
+
+    <div class="signin_checkmark">
+        <img src="../img/signin/Checkmark.png" alt="SIGNUP"/>
     </div>
-    <div class="form-group">
-        <label class="col-md-4 control-label" for="email">Email</label>
-        <div class="col-md-8">
-            <input id="email" class="form-control" type="text" name="email" placeholder="Email" value="{{user.email}}" />
-        </div>
+    <div class="signin_welcome">
+        <div class="welcome">Create your account.</div>
+        Already have an account? <a href="signin">Log in now</a>.
     </div>
-    <div class="form-group">
-        <label class="col-md-4 control-label" for="password">Password</label>
-        <div class="col-md-8">
-            <input id="password" class="form-control" type="password" name="password" placeholder="Password" />
-        </div>
+    <div class="arrow_box">
+        <form class="signup form-horizontal" action="/users" method="post">
+            <div class="form-group">
+                    <input id="name" class="form-control" type="text" name="name" placeholder="Full Name" value="{{user.name}}" />
+            </div>
+            <div class="form-group">
+                    <input id="email" class="form-control" type="text" name="email" placeholder="Email" value="{{user.email}}" />
+            </div>
+            <div class="form-group">
+                    <input id="password" class="form-control" type="password" name="password" placeholder="Password" />
+            </div>
+            <div class="form-group">
+                    <button class="btn-signin" type="submit">ONWARD</button>
+            </div>
+            <div class="form-group">
+                <div class="fsignin">                
+                    <a href="forgotpass" class="forgotpass">Forgot your password</a>?
+                </div>
+            </div>        
+        </form>
     </div>
-    <div class="form-group">
-        <div class="col-md-offset-4 col-md-8">
-            <button class="btn btn-primary" type="submit">Sign up</button>&nbsp;
-            or&nbsp;<a class="show-login" href="/signin">login</a>
-        </div>
-    </div>
-</form>
 {% endblock %}

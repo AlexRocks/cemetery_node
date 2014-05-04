@@ -16,7 +16,7 @@ h5. Heading 5 | 32px | #201701
 
 h5. Heading 6 | 32px | #9b9995 
 
-p. Paragraph | 2213:: | #201701  font-weight: normal
+p. Paragraph | 22px | #201701  font-weight: normal
 */
 
 html {
@@ -27,6 +27,7 @@ html {
 
 body {
     background-color: #201701;
+    font-family: 'Rokkitt';
 }
 
 .navbar, .navbar-inverse {
@@ -136,6 +137,11 @@ p {
     color: #201701;
 }
 
+a {
+    color: #eaeaea;
+    text-decoration: underline;
+}
+
 div.top_header {
     background-image: url('../img/index_search.png');
     background-position: center center;
@@ -176,4 +182,127 @@ div.top_header input{
 footer {
     font-family: 'Rokkitt';
     color: #eaeaea;
+}
+
+div.signin_checkmark {
+    margin: 0 auto;
+    width: 127px;
+}
+
+div.signin_welcome {
+    color: #eaeaea;
+    font-weight: normal;
+    font-size: 20px;
+    text-align: center;
+    font-family: 'Rokkitt';
+    margin-bottom: 15px;
+}
+
+div.signin_welcome .welcome{
+    font-size: 26px;
+}
+
+form.signin, form.signup {
+    background-color: #eaeaea;
+    width: 350px;
+    /*height: 250px;*/
+    border-radius: 5px;
+    margin: 0px auto;
+    padding: 25px 35px 5px;
+}
+
+form.signup {
+    height: 100%;
+}
+
+.form-control {
+    background-color: #FFFFFF;
+    background-image: none;
+    opacity: 0.5;
+    border: 2px solid #FFFFFF;
+    border-radius: 6px;
+    box-shadow: none;
+    color: #201701;
+    display: block;
+    font-size: 20px;
+    height: 45px;
+    line-height: 1.42857;
+    padding: 6px 12px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    vertical-align: middle;
+    width: 100%;
+}
+.form-control:focus {
+    border: 2px solid #000000;
+    opacity: 1;
+}
+
+.form-control.form-input-username {
+    background-image: url('../img/signin/Icon_name.png');
+    background-position: calc(100% - 15px) center;
+    background-repeat: no-repeat;
+}
+
+.form-control.form-input-password {
+    background-image: url('../img/signin/Icon_lock.png');
+    background-position: calc(100% - 15px) center;
+    background-repeat: no-repeat;
+}
+
+.btn-signin {
+    -moz-user-select: none;
+    background-image: none;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 26px;
+    font-weight: normal;
+    line-height: 1.42857;
+    margin-bottom: 0;
+    padding: 6px 12px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    
+    background-color: #201701;
+    color: #eaeaea;
+    font-weight: normal;
+    width: 100%;
+    height: 45px;
+}
+
+div.fsignin {
+    margin: 0px auto;
+    text-align: center;
+    color: #9b9995;    
+    font-size: 16px;  
+    width: 100%;
+}
+
+.forgotpass {
+    color: #9b9995;   
+}
+
+.arrow_box { 
+    position: relative; 
+    background: #eaeaea; 
+    width: 365px;
+    /*height: 250px;*/
+    border-radius: 5px;
+    margin: 0 auto;
+} 
+.arrow_box:after { 
+    right: 100%; 
+    top: 45px; 
+    border: solid transparent; 
+    content: " "; 
+    height: 0; 
+    width: 0; 
+    position: absolute; 
+    pointer-events: none; 
+    border-color: rgba(234, 234, 234, 0); 
+    border-right-color: #eaeaea; 
+    border-width: 15px; 
+    margin-top: -15px; 
 }

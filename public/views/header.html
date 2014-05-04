@@ -26,10 +26,10 @@
                 </ul>
             </li>
         </ul>
-        <div class="nav navbar-nav navbar-right navbar-divider">
-            
-        </div>
-        <div class="nav navbar-nav navbar-right navbar-manage">
+        
+        <div class="nav navbar-nav navbar-right navbar-divider" data-ng-show="global.authenticated"></div>
+        
+        <div class="nav navbar-nav navbar-right navbar-manage" data-ng-show="global.authenticated">
             <ul class="nav navbar-nav">
                 <li  class="divider-vertical" data-ng-repeat="item in menu" ui-route="/{{item.link}}" ng-class="{active: $uiRoute}">
                     <a href="#!/{{item.link}}">{{item.title}}</a> 
