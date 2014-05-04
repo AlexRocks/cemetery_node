@@ -4,23 +4,20 @@ angular.module('mean.system').controller('HeaderController', ['$scope', 'Global'
     $scope.global = Global;
 
     $scope.menu = [{
-        'title': 'Articles',
-        'link': 'articles'
+        'title': 'SEARCH | ',
+        'link': 'search'
     }, {
-        'title': 'Create New Article',
-        'link': 'articles/create'
+        'title': 'MANAGE | ',
+        'link': 'cemeteries'
     }, {
-        'title': 'Graves',
-        'link': 'graves'
+        'title': 'USERS | ',
+        'link': 'users'
     }, {
-        'title': 'Create New Grave',
-        'link': 'graves/create'
+        'title': 'REPORTS | ',
+        'link': 'reports'
     }, {
-        'title': 'Cemeterys',
-        'link': 'cemeterys'
-    }, {
-        'title': 'Create New Cemetery',
-        'link': 'cemeterys/create'
+        'title': 'SETTINGS',
+        'link': 'settings'
     }];
     
     $scope.isCollapsed = false;

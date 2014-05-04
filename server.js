@@ -8,6 +8,7 @@ var express = require('express'),
         passport = require('passport'),
         formidable = require('formidable'),
         logger = require('mean-logger');
+        
 
 /**
  * Main application entry file.
@@ -46,6 +47,7 @@ walk(models_path);
 require('./config/passport')(passport);
 
 var app = express();
+app.locals.moment = require('moment');
 
 // Express settings
 require('./config/express')(app, passport, db);

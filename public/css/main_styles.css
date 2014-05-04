@@ -1,0 +1,179 @@
+@import url(http://fonts.googleapis.com/css?family=Rokkitt);
+
+
+/**
+General Padding Rule: 30px 
+
+h1. Headingl | 90pX | #201701 
+
+h2. Heading 2 | 72px | #201701 
+
+h3. Heading 3 | 54px | #201701 
+
+h4. Heading 4 | 42px | #201701 
+
+h5. Heading 5 | 32px | #201701 
+
+h5. Heading 6 | 32px | #9b9995 
+
+p. Paragraph | 2213:: | #201701  font-weight: normal
+*/
+
+html {
+    font-family: 'Rokkitt';
+    font-size: 22px;
+    
+}
+
+body {
+    background-color: #201701;
+}
+
+.navbar, .navbar-inverse {
+    font-family: 'Rokkitt';
+    margin-bottom: 0px;
+    background-color: #201701;
+}
+
+.gravestone_icon {
+    background-image: url('../img/icons/gravestone_icon.png');
+    padding-left: 30px;
+    background-repeat: no-repeat;
+    background-position: left 30%;
+    padding-top: 2px;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #eaeaea;
+    font-weight: normal;
+}
+
+.navbar-brand {
+    font-size: 32px;
+}
+
+.navbar-collapse .navbar-login {
+    border-radius: 10px;
+    border-color: white;
+    font-size: 22px;
+    font-weight: normal;
+    margin-left: 10px;
+    margin-top: 10px;
+    border: 1px solid #CCCCCC;
+    padding: 0px 10px 5px 15px;
+    width: 95px;
+    height: 30px;
+}
+
+.navbar-collapse .navbar-login a, .navbar-manage a {
+    font-size: 22px;
+    text-decoration: none;
+    color: #eaeaea;
+}
+
+.navbar-manage .navbar-nav > li > a {
+    padding-bottom: 0px;
+    padding-top: 5px;
+    padding-left: 2px;
+    padding-right: 2px;
+    color: #201701;
+}
+
+.navbar-manage {
+    border-radius: 10px;
+    border-color: white;
+    background-color: #eaeaea;
+    font-size: 22px;
+    font-weight: normal;
+    margin-left: 10px;
+    margin-top: 10px;
+    border: 1px solid #CCCCCC;
+    padding: 0px 10px 5px 15px;
+    width: 480px;
+    height: 30px;
+    margin-right: 30px;
+}
+
+.navbar-divider {
+    width: 30px;
+    height: 5px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #201701;
+    font-weight: bold;
+    font-family: 'Rokkitt';
+}
+
+h1 {
+    font-size: 90px;
+}
+
+h2 {
+    font-size: 72px;
+}
+
+h3 {
+    font-size: 54px;
+}
+
+h4 {
+    font-size: 42px;
+}
+
+h5 {
+    font-size: 32px;
+}
+
+h6 {
+    font-size: 32px;
+    color: #9b9995;
+}
+
+p {
+    font-size: 22px;
+    font-weight: normal;
+    color: #201701;
+}
+
+div.top_header {
+    background-image: url('../img/index_search.png');
+    background-position: center center;
+    height: 410px;
+    font-family: 'Rokkitt';
+}
+
+div.top_header h1{
+    color: #eaeaea;
+    font-size: 90px;
+}
+
+div.top_header input{
+    height: 150px;
+    width: 770px;
+    border-radius: 20px;
+    background-color: #d0d0cf;
+    font-size: 52px;
+    text-align: left;
+    color: #201701;
+    padding: 30px;
+    
+}
+
+.middle_container {
+    text-align: center;
+    color: #eaeaea;
+    font-size: 22px;
+    font-family: 'Rokkitt';
+}
+
+.middle_container a {
+    font-size: 52px;
+    color: #eaeaea;
+    text-decoration: underline;
+}
+
+footer {
+    font-family: 'Rokkitt';
+    color: #eaeaea;
+}
